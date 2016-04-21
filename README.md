@@ -6,6 +6,10 @@
 [ci-img]:  https://travis-ci.org/eramdam/postcss-sanitize.svg
 [ci]:      https://travis-ci.org/eramdam/postcss-sanitize
 
+## Disclaimer
+
+This package is still not published on NPM because it's not decently documented yet!
+
 ## Usage
 
 Let's say you want to do the following things:
@@ -41,3 +45,8 @@ Output:
 ```
 
 See [PostCSS] docs for examples for your environment.
+
+## Todo
+- [ ] Write documentation
+  - [ ] About general usage
+  - [ ] About API
