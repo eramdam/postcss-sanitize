@@ -10,6 +10,36 @@
 
 ## Usage
 
-_Needs to be done_
+Let's say you want to do the following things:
++ Remove Comic Sans as a font from your CSS
++ Disallow `position: absolute` or `position: relative`
+
+Options:
+```js
+removeEmpty: true,
+rules: [{
+  prop: /font/gi,
+  value: /Comic Sans/gi
+}, {
+  prop: 'position',
+  value: /relative|absolute/
+}]
+```
+
+Input:
+```css
+.skeleton--Sans {
+  color: blue;
+  position: absolute;
+  font-family: "Comic Sans MS";
+}
+```
+
+Output:
+```css
+.skeleton--Sans {
+  color: blue;
+}
+```
 
 See [PostCSS] docs for examples for your environment.
