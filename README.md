@@ -1,5 +1,3 @@
-**Work In Progress**
-
 # PostCSS Sanitize [![Build Status][ci-img]][ci]
 
 [PostCSS] plugin that removes properties and values based on options (think like a CSS sanitizer).
