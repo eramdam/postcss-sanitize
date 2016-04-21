@@ -34,9 +34,8 @@ module.exports = postcss.plugin('postcss-sanitize', (opts) => {
     const rules = opts.rules;
 
     css.walkDecls(decl => {
-      if (rules.some(rule => passRule(rule, decl))) {
+      if (rules.some(rule => passRule(rule, decl)))
         decl.remove();
-      }
     });
 
     if (opts.removeEmpty)
