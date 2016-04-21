@@ -10,11 +10,11 @@
   ],
   "author": "Damien Erambert <damien.erambert@me.com>",
   "license": "MIT",
-  "repository": "Eramdam/postcss-sanitize",
+  "repository": "eramdam/postcss-sanitize",
   "bugs": {
-    "url": "https://github.com/Eramdam/postcss-sanitize/issues"
+    "url": "https://github.com/eramdam/postcss-sanitize/issues"
   },
-  "homepage": "https://github.com/Eramdam/postcss-sanitize",
+  "homepage": "https://github.com/eramdam/postcss-sanitize",
   "dependencies": {
     "lodash": "^4.11.1",
     "postcss": "^5.0.16"

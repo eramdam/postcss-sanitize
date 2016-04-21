@@ -5,8 +5,8 @@
 [PostCSS] plugin that removes properties and values based on options (think like a CSS sanitizer).
 
 [PostCSS]: https://github.com/postcss/postcss
-[ci-img]:  https://travis-ci.org/Eramdam/postcss-sanitize.svg
-[ci]:      https://travis-ci.org/Eramdam/postcss-sanitize
+[ci-img]:  https://travis-ci.org/eramdam/postcss-sanitize.svg
+[ci]:      https://travis-ci.org/eramdam/postcss-sanitize
 
 ## Usage
 
