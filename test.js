@@ -70,6 +70,8 @@ test('should remove empty CSS rules after cleaning', t => {
 test('should declarations when both property AND value match', t => {
   const input = `.skeleton--Sans {
       font-family: 'Comic Sans';
+      position: absolute;
+      position: fixed;
     }`;
 
   const output = '';
@@ -79,6 +81,9 @@ test('should declarations when both property AND value match', t => {
     rules: [{
       prop: 'font-family',
       value: /Comic Sans/gi
+    }, {
+      prop: 'position',
+      value: /absolute|fixed/
     }]
   };
 
