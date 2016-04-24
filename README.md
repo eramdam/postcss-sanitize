@@ -1,14 +1,16 @@
-# PostCSS Sanitize [![Build Status][ci-img]][ci]
+# PostCSS Sanitize [![Build Status][ci-img]][ci] [![David](https://img.shields.io/david/eramdam/postcss-sanitize.svg)]()
+
+[![npm](https://img.shields.io/npm/v/postcss-sanitize.svg)](https://www.npmjs.com/package/postcss-sanitize)
+[![npm](https://img.shields.io/npm/l/postcss-sanitize.svg)](https://www.npmjs.com/package/postcss-sanitize)
 
 [PostCSS] plugin that removes properties and values based on options (think like a CSS sanitizer).
 
-[PostCSS]: https://github.com/postcss/postcss
-[ci-img]:  https://travis-ci.org/eramdam/postcss-sanitize.svg
-[ci]:      https://travis-ci.org/eramdam/postcss-sanitize
 
-## Disclaimer
+## Installation
 
-This package is still not published on NPM because it's not decently documented yet!
+```bash
+npm install postcss postcss-sanitize
+```
 
 ## Usage
 
@@ -79,3 +81,8 @@ You will need at least Node 5.x.
 ## License
 
 This project is using the MIT License (see `LICENSE` file for more infos)
+
+
+[PostCSS]: https://github.com/postcss/postcss
+[ci-img]:  https://travis-ci.org/eramdam/postcss-sanitize.svg
+[ci]:      https://travis-ci.org/eramdam/postcss-sanitize

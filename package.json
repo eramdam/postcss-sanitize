@@ -1,6 +1,6 @@
 {
   "name": "postcss-sanitize",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "PostCSS plugin that removes properties and values based on options (think like a CSS sanitizer)",
   "keywords": [
     "postcss",
