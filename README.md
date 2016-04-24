@@ -19,6 +19,7 @@ Let's say you want to do the following things:
 Options:
 ```js
 removeEmpty: true,
+allowedSchemes: ['http', 'https']
 rules: [{
   prop: /font/gi,
   value: /Comic Sans/gi
@@ -30,10 +31,16 @@ rules: [{
 
 Input:
 ```css
+@import(ssh://foobar.host);
+
 .skeleton--Sans {
   color: blue;
   position: absolute;
   font-family: "Comic Sans MS";
+}
+
+.the-real-slim-shady-element {
+  background-image: url(javascript:alert(42));
 }
 ```
 
@@ -42,11 +49,16 @@ Output:
 .skeleton--Sans {
   color: blue;
 }
+
+.the-real-slim-shady-element {
+  background-image: url();
+}
 ```
 
 ## Options
 
 + `removeEmpty (boolean) (Default: false)`: Decide if you want to CSS rules made empty by the changes
++ `allowedSchemes`: An array of URL schemes you want to allow in your CSS.
 + `rules (array)`: rules
   - `prop (RegExp/string)`: the pattern or the **exact** string you want to match in properties
   - `value (RegExp/string)`: the pattern or the **exact** string you want to match in values

@@ -1,6 +1,7 @@
 'use strict';
 
 const postcss = require('postcss');
+const valueParser = require('postcss-value-parser');
 const _ = require('lodash');
 
 const passRule = (rule, decl) => {
@@ -21,6 +22,11 @@ const deleteEmptyRules = (rule) => {
     rule.remove();
 };
 
+const deleteURL = (url, schemes) => {
+  const cleanedUrl = url.replace(/^[\s]+/, '');
+  return !schemes.some((s) => cleanedUrl.startsWith(s));
+};
+
 module.exports = postcss.plugin('postcss-sanitize', (opts) => {
   opts = Object.assign({
     removeEmpty: false,
@@ -28,14 +34,38 @@ module.exports = postcss.plugin('postcss-sanitize', (opts) => {
   }, opts);
 
   return (css, result) => {
-    if (opts.rules.length === 0)
+    if (opts.rules.length === 0 && !opts.allowedSchemes)
       result.warn('No rules specified, are you sure you\'re not forgetting something?');
 
     const rules = opts.rules;
 
+    if (opts.allowedSchemes) {
+      css.walkAtRules('import', (rule) => {
+        const url = rule.params.replace(/^\(/, '').replace(/\)$/, '');
+        if (deleteURL(url, opts.allowedSchemes))
+          rule.remove();
+      });
+    }
+
     css.walkDecls(decl => {
       if (rules.some(rule => passRule(rule, decl)))
         decl.remove();
+
+      if (opts.allowedSchemes) {
+        const parsed = valueParser(decl.value);
+
+        parsed.walk((node) => {
+          if (node.type !== 'function' && node.value !== 'url')
+            return;
+
+          node.nodes.forEach((urlNode) => {
+            if (deleteURL(urlNode.value, opts.allowedSchemes))
+              urlNode.value = '';
+          });
+        });
+
+        decl.value = parsed.toString();
+      }
     });
 
     if (opts.removeEmpty)
