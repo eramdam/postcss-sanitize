@@ -2,14 +2,16 @@
 
 const postcss = require('postcss');
 const valueParser = require('postcss-value-parser');
-const _ = require('lodash');
+const isRegExp = require('lodash.isregexp');
+const isString = require('lodash.isstring');
+const _every = require('lodash.every');
 
 const passRule = (rule, decl) => {
-  return _.every(rule, (val, key) => {
-    if (_.isRegExp(val)) {
+  return _every(rule, (val, key) => {
+    if (isRegExp(val)) {
       val.lastIndex = 0;
       return val.test(decl[key]);
-    } else if (_.isString(val)) {
+    } else if (isString(val)) {
       return decl[key] === val;
     }
 
