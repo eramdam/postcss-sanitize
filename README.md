@@ -62,7 +62,7 @@ You will need at least Node 5.x.
 - Install the dependencies
 - Hack around
 - Make sure tests are passing or add some if needed
-- Open a pull request
+- Open a pull request :tada:
 
 ## License
 

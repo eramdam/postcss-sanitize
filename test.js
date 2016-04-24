@@ -67,7 +67,7 @@ test('should remove empty CSS rules after cleaning', t => {
   return run(t, input, output, opts);
 });
 
-test('should declarations when both property AND value match', t => {
+test('should remove declarations when both property AND value match', t => {
   const input = `.skeleton--Sans {
       font-family: 'Comic Sans';
       position: absolute;
