@@ -44,9 +44,26 @@ Output:
 }
 ```
 
+## Options
+
++ `removeEmpty (boolean) (Default: false)`: Decide if you want to CSS rules made empty by the changes
++ `rules (array)`: rules
+  - `prop (RegExp/string)`: the pattern or the **exact** string you want to match in properties
+  - `value (RegExp/string)`: the pattern or the **exact** string you want to match in values
+  - **Important** When using both, a property/value couple have to match both the property and the value pattern to be matched and removed.
+
 See [PostCSS] docs for examples for your environment.
 
-## Todo
-- [ ] Write documentation
-  - [ ] About general usage
-  - [ ] About API
+## Contribute
+
+You will need at least Node 5.x.
+
+- Fork
+- Install the dependencies
+- Hack around
+- Make sure tests are passing or add some if needed
+- Open a pull request
+
+## License
+
+This project is using the MIT License (see `LICENSE` file for more infos)
