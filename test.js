@@ -102,6 +102,7 @@ test('should remove declarations and @import based on URLs schemes', t => {
       background: url();
       background: url(///data:aGVsbG8=);
       background: url(http://image.cool/cat.png);
+      background: rgb(0,0,0);
     }`;
 
   const output = `
@@ -112,6 +113,7 @@ test('should remove declarations and @import based on URLs schemes', t => {
       background: url();
       background: url();
       background: url(http://image.cool/cat.png);
+      background: rgb(0,0,0);
     }`;
 
   const opts = {
