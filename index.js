@@ -57,13 +57,12 @@ module.exports = postcss.plugin('postcss-sanitize', (opts) => {
         const parsed = valueParser(decl.value);
 
         parsed.walk((node) => {
-          if (node.type !== 'function' && node.value !== 'url')
-            return;
-
-          node.nodes.forEach((urlNode) => {
-            if (deleteURL(urlNode.value, opts.allowedSchemes))
-              urlNode.value = '';
-          });
+          if (node.type === 'function' && node.value === 'url') {
+            node.nodes.forEach((urlNode) => {
+              if (deleteURL(urlNode.value, opts.allowedSchemes))
+                urlNode.value = '';
+            });
+          }
         });
 
         decl.value = parsed.toString();
