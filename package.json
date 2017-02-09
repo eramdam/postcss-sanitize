@@ -19,7 +19,7 @@
     "lodash.every": "^4.3.0",
     "lodash.isregexp": "^3.0.5",
     "lodash.isstring": "^4.0.1",
-    "postcss": "^5.0.16",
+    "postcss": "^5.2.12",
     "postcss-value-parser": "^3.3.0"
   },
   "devDependencies": {

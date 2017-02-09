@@ -24,10 +24,15 @@ const deleteEmptyRules = (rule) => {
     rule.remove();
 };
 
+const cleanURLRE = /^[\s]+/;
+
 const deleteURL = (url, schemes) => {
-  const cleanedUrl = url.replace(/^[\s]+/, '');
-  return !schemes.some((s) => cleanedUrl.startsWith(s));
+  const cleanedUrl = url.replace(cleanURLRE, '');
+  return !schemes.some((s) => cleanedUrl.indexOf(s) === 0);
 };
+
+const startParenthesis = /^\(/;
+const endParenthesis = /\)$/;
 
 module.exports = postcss.plugin('postcss-sanitize', (opts) => {
   opts = Object.assign({
@@ -43,7 +48,7 @@ module.exports = postcss.plugin('postcss-sanitize', (opts) => {
 
     if (opts.allowedSchemes) {
       css.walkAtRules('import', (rule) => {
-        const url = rule.params.replace(/^\(/, '').replace(/\)$/, '');
+        const url = rule.params.replace(startParenthesis, '').replace(endParenthesis, '');
         if (deleteURL(url, opts.allowedSchemes))
           rule.remove();
       });
