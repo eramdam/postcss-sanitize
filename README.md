@@ -9,7 +9,7 @@
 ## Installation
 
 ```bash
-npm install postcss postcss-sanitize
+npm install postcss-sanitize
 ```
 
 ## Usage
