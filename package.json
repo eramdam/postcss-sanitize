@@ -1,6 +1,6 @@
 {
   "name": "postcss-sanitize",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "PostCSS plugin that removes properties and values based on options (think like a CSS sanitizer)",
   "keywords": [
     "postcss",
@@ -19,13 +19,16 @@
     "lodash.every": "^4.3.0",
     "lodash.isregexp": "^3.0.5",
     "lodash.isstring": "^4.0.1",
-    "postcss": "^5.2.12",
     "postcss-value-parser": "^3.3.0"
+  },
+  "peerDependencies": {
+    "postcss": "^8.3.6"
   },
   "devDependencies": {
     "ava": "^0.14.0",
     "eslint": "^2.1.0",
-    "eslint-config-postcss": "^2.0.0"
+    "eslint-config-postcss": "^2.0.0",
+    "postcss": "^8.3.6"
   },
   "scripts": {
     "test": "ava && eslint *.js"

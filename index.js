@@ -1,6 +1,5 @@
 'use strict';
 
-const postcss = require('postcss');
 const valueParser = require('postcss-value-parser');
 const isRegExp = require('lodash.isregexp');
 const isString = require('lodash.isstring');
@@ -34,47 +33,52 @@ const deleteURL = (url, schemes) => {
 const startParenthesis = /^\(/;
 const endParenthesis = /\)$/;
 
-module.exports = postcss.plugin('postcss-sanitize', (opts) => {
+module.exports = (opts) => {
   opts = Object.assign({
     removeEmpty: false,
     rules: []
   }, opts);
 
-  return (css, result) => {
-    if (opts.rules.length === 0 && !opts.allowedSchemes)
-      result.warn('No rules specified, are you sure you\'re not forgetting something?');
+  return {
+    postcssPlugin: 'postcss-sanitize',
+    Once(css, { result }) {
+      if (opts.rules.length === 0 && !opts.allowedSchemes)
+        result.warn('No rules specified, are you sure you\'re not forgetting something?');
 
-    const rules = opts.rules;
-
-    if (opts.allowedSchemes) {
-      css.walkAtRules('import', (rule) => {
-        const url = rule.params.replace(startParenthesis, '').replace(endParenthesis, '');
-        if (deleteURL(url, opts.allowedSchemes))
-          rule.remove();
-      });
-    }
-
-    css.walkDecls(decl => {
-      if (rules.some(rule => passRule(rule, decl)))
-        decl.remove();
+      const rules = opts.rules;
 
       if (opts.allowedSchemes) {
-        const parsed = valueParser(decl.value);
-
-        parsed.walk((node) => {
-          if (node.type === 'function' && node.value === 'url') {
-            node.nodes.forEach((urlNode) => {
-              if (deleteURL(urlNode.value, opts.allowedSchemes))
-                urlNode.value = '';
-            });
-          }
+        css.walkAtRules('import', (rule) => {
+          const url = rule.params.replace(startParenthesis, '').replace(endParenthesis, '');
+          if (deleteURL(url, opts.allowedSchemes))
+            rule.remove();
         });
-
-        decl.value = parsed.toString();
       }
-    });
 
-    if (opts.removeEmpty)
-      css.walkRules(rule => deleteEmptyRules(rule));
+      css.walkDecls(decl => {
+        if (rules.some(rule => passRule(rule, decl)))
+          decl.remove();
+
+        if (opts.allowedSchemes) {
+          const parsed = valueParser(decl.value);
+
+          parsed.walk((node) => {
+            if (node.type === 'function' && node.value === 'url') {
+              node.nodes.forEach((urlNode) => {
+                if (deleteURL(urlNode.value, opts.allowedSchemes))
+                  urlNode.value = '';
+              });
+            }
+          });
+
+          decl.value = parsed.toString();
+        }
+      });
+
+      if (opts.removeEmpty)
+        css.walkRules(rule => deleteEmptyRules(rule));
+    }
   };
-});
+};
+
+module.exports.postcss = true;
