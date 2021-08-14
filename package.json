@@ -27,10 +27,17 @@
     "eslint": "^7.32.0",
     "eslint-config-postcss": "^4.0.0",
     "eslint-config-prettier": "^8.3.0",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.1.2",
     "postcss": "^8.3.6",
     "prettier": "^2.3.2"
   },
   "scripts": {
-    "test": "ava && eslint *.js"
+    "test": "ava && prettier --check *.js && eslint *.js",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   }
 }
