@@ -1,6 +1,6 @@
 {
   "name": "postcss-sanitize",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "PostCSS plugin that removes properties and values based on options (think like a CSS sanitizer)",
   "keywords": [
     "postcss",
@@ -37,7 +37,6 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix",
-    "*.{js,css,md}": "prettier --write"
+    "*.js": "eslint --cache --fix && prettier --write"
   }
 }
