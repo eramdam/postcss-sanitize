@@ -5,3 +5,8 @@ npm-debug.log
 
 test.js
 .travis.yml
+.eslintrc.js
+.husky/pre-commit
+.nvmrc
+.prettierrc.json
+.vscode/settings.json
