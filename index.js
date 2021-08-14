@@ -1,14 +1,14 @@
-'use strict';
+"use strict";
 
-const valueParser = require('postcss-value-parser');
-const isRegExp = require('lodash.isregexp');
+const valueParser = require("postcss-value-parser");
+const isRegExp = require("lodash.isregexp");
 
 const passRule = (rule, decl) => {
   return Object.entries(rule).every(([key, val]) => {
     if (isRegExp(val)) {
       val.lastIndex = 0;
       return val.test(decl[key]);
-    } else if (typeof val === 'string') {
+    } else if (typeof val === "string") {
       return decl[key] === val;
     }
 
@@ -16,55 +16,67 @@ const passRule = (rule, decl) => {
   });
 };
 
-const deleteEmptyRules = (rule) => {
-  if (rule.nodes.length === 0)
+const deleteEmptyRules = rule => {
+  if (rule.nodes.length === 0) {
     rule.remove();
+  }
 };
 
-const cleanURLRE = /^[\s]+/;
+const cleanURLRE = /^\s+/;
 
 const deleteURL = (url, schemes) => {
-  const cleanedUrl = url.replace(cleanURLRE, '');
-  return !schemes.some((s) => cleanedUrl.indexOf(s) === 0);
+  let cleanedUrl = url.replace(cleanURLRE, "");
+  return !schemes.some(s => cleanedUrl.indexOf(s) === 0);
 };
 
 const startParenthesis = /^\(/;
 const endParenthesis = /\)$/;
 
-module.exports = (opts) => {
-  opts = Object.assign({
-    removeEmpty: false,
-    rules: []
-  }, opts);
+module.exports = opts => {
+  opts = Object.assign(
+    {
+      removeEmpty: false,
+      rules: []
+    },
+    opts
+  );
 
   return {
-    postcssPlugin: 'postcss-sanitize',
+    postcssPlugin: "postcss-sanitize",
     Once(css, { result }) {
-      if (opts.rules.length === 0 && !opts.allowedSchemes)
-        result.warn('No rules specified, are you sure you\'re not forgetting something?');
+      if (opts.rules.length === 0 && !opts.allowedSchemes) {
+        result.warn(
+          "No rules specified, are you sure you're not forgetting something?"
+        );
+      }
 
-      const rules = opts.rules;
+      let rules = opts.rules;
 
       if (opts.allowedSchemes) {
-        css.walkAtRules('import', (rule) => {
-          const url = rule.params.replace(startParenthesis, '').replace(endParenthesis, '');
-          if (deleteURL(url, opts.allowedSchemes))
+        css.walkAtRules("import", rule => {
+          let url = rule.params
+            .replace(startParenthesis, "")
+            .replace(endParenthesis, "");
+          if (deleteURL(url, opts.allowedSchemes)) {
             rule.remove();
+          }
         });
       }
 
       css.walkDecls(decl => {
-        if (rules.some(rule => passRule(rule, decl)))
+        if (rules.some(rule => passRule(rule, decl))) {
           decl.remove();
+        }
 
         if (opts.allowedSchemes) {
-          const parsed = valueParser(decl.value);
+          let parsed = valueParser(decl.value);
 
-          parsed.walk((node) => {
-            if (node.type === 'function' && node.value === 'url') {
-              node.nodes.forEach((urlNode) => {
-                if (deleteURL(urlNode.value, opts.allowedSchemes))
-                  urlNode.value = '';
+          parsed.walk(node => {
+            if (node.type === "function" && node.value === "url") {
+              node.nodes.forEach(urlNode => {
+                if (deleteURL(urlNode.value, opts.allowedSchemes)) {
+                  urlNode.value = "";
+                }
               });
             }
           });
@@ -73,8 +85,9 @@ module.exports = (opts) => {
         }
       });
 
-      if (opts.removeEmpty)
+      if (opts.removeEmpty) {
         css.walkRules(rule => deleteEmptyRules(rule));
+      }
     }
   };
 };
