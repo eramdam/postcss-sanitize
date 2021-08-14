@@ -8,7 +8,7 @@
     "postcss-plugin",
     "sanitizer"
   ],
-  "author": "Damien Erambert <damien.erambert@me.com>",
+  "author": "Damien Erambert <damien@erambert.me>",
   "license": "MIT",
   "repository": "eramdam/postcss-sanitize",
   "bugs": {
