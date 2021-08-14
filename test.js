@@ -4,7 +4,7 @@ const plugin = require('./index');
 
 
 function run(t, input, output, opts = { }) {
-  return postcss([ plugin(opts) ]).process(input)
+  return postcss([ plugin(opts) ]).process(input, { from: undefined })
         .then( result => {
           t.is(result.css, output);
           t.is(result.warnings().length, 0);
