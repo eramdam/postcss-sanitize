@@ -17,7 +17,7 @@
   "homepage": "https://github.com/eramdam/postcss-sanitize",
   "dependencies": {
     "lodash.isregexp": "^3.0.5",
-    "postcss-value-parser": "^3.3.0"
+    "postcss-value-parser": "^4.1.0"
   },
   "peerDependencies": {
     "postcss": "^8.3.6"
